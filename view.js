@@ -7,7 +7,11 @@ $('#add-to-list').on('click', () => {
   let name = $('#Name').val()
   let email = $('#Email').val()
 
-  fs.appendFile('contacts', name + ',' + email + '\n')
+  // fs.appendFile('contacts', name + ',' + email + '\n')
+  fs.appendFile('message.txt', name + ',' + email + '\n', (err) => {
+  if (err) throw err;
+  console.log(`The ${name} and ${email} was appended to file!`);
+});
 
   addEntry(name, email)
 })
