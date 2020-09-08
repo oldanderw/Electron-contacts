@@ -19,9 +19,6 @@ function addEntry(name, email) {
     $('#contact-table').append(updateString)
   }
 }
-//$('#loadAndDisplayContacts').on('click', () => {
-//  loadAndDisplayContacts()
-//})
 function loadAndDisplayContacts() {
 
   //Check if file exists
