@@ -22,18 +22,13 @@ document.querySelector("#add-to-list").addEventListener("click", (event) => {
   addEntry(contact.Name, contact.Email)
 });
 
-// $('#add-to-list').on('click', () => {
-//   let name = $('#Name').val()
-//   let email = $('#Email').val()
-//
-//   // fs.appendFile('contacts', name + ',' + email + '\n')
-//   fs.appendFile('message.txt', name + ',' + email + '\n', (err) => {
-//   if (err) throw err;
-//   console.log(`The ${name} and ${email} was appended to file!`);
-// });
-//
-//   addEntry(name, email)
-// })
+document.querySelector("#DisplayContacts").addEventListener("click", (event) => {
+  let cons = document.querySelector('tbody');
+  cons.innerHTML = `<tr><th>No.</th><th>Name</th><th>Email</th></tr>`;
+  sno = 0
+  loadAndDisplayContacts()
+
+})
 
 function addEntry(name, email) {
   if (name && email) {
