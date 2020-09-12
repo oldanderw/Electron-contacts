@@ -1,5 +1,4 @@
-const { app, BrowserWindow } = require('electron')
-
+const { app, BrowserWindow, ipcMain} = require('electron')
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -31,6 +30,33 @@ app.whenReady().then(createWindow)
 //   }
 // })
 
+ipcMain.on('openFile', (event, path) => {
+   const {dialog} = require('electron')
+   const fs = require('fs')
+   dialog.showOpenDialog(function (fileNames) {
+
+      // fileNames is an array that contains all the selected
+      if(fileNames === undefined) {
+         console.log("No file selected");
+
+      } else {
+         readFile(fileNames[0]);
+      }
+   });
+function readFile(filepath) {
+      fs.readFile(filepath, 'utf-8', (err, data) => {
+
+         if(err){
+            alert("An error ocurred reading the file :" + err.message)
+            return
+         }
+
+         // handle the file content
+         event.sender.send('fileData', data)
+      })
+   }
+})
+
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -38,6 +64,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

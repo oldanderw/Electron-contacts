@@ -14,6 +14,17 @@
    </head>
 
    <body>
+     <script type = "text/javascript">
+         const {ipcRenderer} = require('electron')
+         ipcRenderer.send('openFile', () => {
+            console.log("Event sent.");
+         })
+
+         ipcRenderer.on('fileData', (event, data) => {
+            document.write(data)
+         })
+      </script>
+
       <div class = "container">
          <h1>Enter Names and Email addresses of your contacts</h1>
          <div class = "form-group">

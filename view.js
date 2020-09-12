@@ -1,20 +1,18 @@
-const $$ = require('jquery')
 const fs = require('fs')
-const filename = 'contacts'
+const filename = 'contacts.json'
 let sno = 0
-let $ = document.querySelector
 let contacts = []
 
 document.querySelector("#add-to-list").addEventListener("click", (event) => {
-  let email = $$("#Email").val()
-  var name = $$("#Name").val()
+  let email = document.querySelector("#Email").value
+  var name = document.querySelector("#Name").value
 
   let contact = { Name: name, Email: email}
   contacts.push(contact)
 
   // fs.appendFile('contacts', name + ',' + email + '\n')
   //fs.appendFile('message.txt', name + ',' + email + '\n', (err) => {
-  fs.writeFile('contacts', JSON.stringify(contacts), (err) => {
+  fs.writeFile('contacts.json', JSON.stringify(contacts), (err) => {
     if (err) throw err;
     console.log(`The ${name} and ${email} was appended to file!`);
   });
