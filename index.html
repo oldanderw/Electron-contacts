@@ -16,10 +16,10 @@
    <body>
      <script type = "text/javascript">
          const {ipcRenderer} = require('electron')
-         ipcRenderer.send('openFile')
+         // ipcRenderer.send('openFile')
 
          ipcRenderer.on('fileData', (event, data) => {
-            document.write(data)
+            console.log(data)
          })
       </script>
 
@@ -40,6 +40,7 @@
          <div class = "form-group">
             <button class = "btn btn-primary" id = "add-to-list">Add to list!</button>
             <button class = "btn btn-primary" id = "DisplayContacts">Refesh</button>
+            <button class = "btn btn-primary" id = "LoadJSONFile">Load</button>
          </div>
 
          <div id = "contact-list">
