@@ -33,21 +33,26 @@ app.whenReady().then(createWindow)
 ipcMain.on('openFile', (event, path) => {
    const {dialog} = require('electron')
    const fs = require('fs')
-   dialog.showOpenDialog(function (fileNames) {
 
-      // fileNames is an array that contains all the selected
-      if(fileNames === undefined) {
-         console.log("No file selected");
+    dialog.showOpenDialog({
+    properties: ['openFile']
+  }).then(result => {
+    if(result.filePaths.length > 0) {
+      let filePath = result.filePaths[0];
+      readFile(filePath);
+    }
+    else {
+      console.log("No file selected");
+    }
+  }).catch(err => {
+    console.log(err)
+  })
 
-      } else {
-         readFile(fileNames[0]);
-      }
-   });
 function readFile(filepath) {
       fs.readFile(filepath, 'utf-8', (err, data) => {
 
          if(err){
-            alert("An error ocurred reading the file :" + err.message)
+            alert(`An error ocurred reading the file : ${err.message}`)
             return
          }
 
