@@ -1,4 +1,5 @@
 const fs = require('fs')
+const {ipcRenderer} = require('electron')
 const filename = 'contacts.json'
 let sno = 0
 let contacts = []
@@ -6,7 +7,6 @@ let contacts = []
 document.querySelector("#add-to-list").addEventListener("click", (event) => {
   let email = document.querySelector("#Email").value
   var name = document.querySelector("#Name").value
-
   let contact = { Name: name, Email: email}
   contacts.push(contact)
 
@@ -19,21 +19,32 @@ document.querySelector("#add-to-list").addEventListener("click", (event) => {
 
   addEntry(contact.Name, contact.Email)
 });
+ function Refesh(){
+   let cons = document.querySelector('tbody');
+   cons.innerHTML = `<tr><th>No.</th><th>Name</th><th>Email</th></tr>`;
+   sno = 0
+   fs.unlink(filename, (err) => {
+      if (err) {
+        console.error(err)
+      }
+    });
+   fs.writeFile(filename, '', (err) => {
+    if (err)
+       console.log(err)
+  })
 
-document.querySelector("#DisplayContacts").addEventListener("click", (event) => {
-  let cons = document.querySelector('tbody');
-  cons.innerHTML = `<tr><th>No.</th><th>Name</th><th>Email</th></tr>`;
-  sno = 0
-  loadAndDisplayContacts()
-
-})
-
+ }
+document.querySelector("#clear").addEventListener("click", (event) => {
+  Refesh()
+});
 function addEntry(name, email) {
   if (name && email) {
     sno++
     let tr = document.createElement("tr");
     tr.innerHTML = `<td>${sno}</td><td>${name}</td><td>${email}</td>`
     document.querySelector('tbody').appendChild(tr)
+    document.querySelector("#Email").value = ""
+    document.querySelector("#Name").value = ""
   }
 }
 
@@ -50,11 +61,12 @@ function loadAndDisplayContacts() {
 
   } else {
     console.log('File dont Exist. Creating new file.')
-    fs.writeFile(filename, '', (err) => {
-      if (err)
-         console.log(err)
-    })
+    NewFile()
   }
 }
+ipcRenderer.on('fileData', (event, data) => {
+  Refresh()
+  //going to add a way to add data and write it to the contacts.json file
+})
 
 loadAndDisplayContacts()

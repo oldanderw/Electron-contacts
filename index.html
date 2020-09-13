@@ -14,14 +14,14 @@
    </head>
 
    <body>
-     <script type = "text/javascript">
+     <!-- <script type = "text/javascript">
          const {ipcRenderer} = require('electron')
          // ipcRenderer.send('openFile')
 
          ipcRenderer.on('fileData', (event, data) => {
             console.log(data)
          })
-      </script>
+      </script> -->
 
       <div class = "container">
          <h1>Enter Names and Email addresses of your contacts</h1>
@@ -39,8 +39,7 @@
 
          <div class = "form-group">
             <button class = "btn btn-primary" id = "add-to-list">Add to list!</button>
-            <button class = "btn btn-primary" id = "DisplayContacts">Refesh</button>
-            <button class = "btn btn-primary" id = "LoadJSONFile">Load</button>
+            <button class = "btn btn-primary" id = "clear">clear</button>
          </div>
 
          <div id = "contact-list">

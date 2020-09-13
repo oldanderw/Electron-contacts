@@ -30,11 +30,15 @@ const template = [
     label: app.name,
     submenu: [
       {
-        label: 'MenuItem1',
+        label: 'Open File',
         click: () => {
             dialog.showOpenDialog({
               properties: ['openFile']
-            })
+              // filters: [
+              //   { name: 'JSON', extensions: ['json'] },
+              //   { name: 'All Files', extensions: ['*'] }
+              // ]
+             })
             .then(result => {
               if(result.filePaths.length > 0) {
                 let filePath = result.filePaths[0];
@@ -46,14 +50,11 @@ const template = [
             });
         }
       },
-      { role: 'about' },
-      { type: 'separator' },
-      { role: 'services' },
-      { type: 'separator' },
-      { role: 'hide' },
-      { role: 'hideothers' },
-      { role: 'unhide' },
-      { type: 'separator' },
+    //   {Label: 'Dev',
+    //    Click: () => {
+    //
+    //    }
+    // },
       { role: 'quit' }
     ]
   }] : []),
