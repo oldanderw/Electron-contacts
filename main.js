@@ -52,7 +52,7 @@ const template = [
       },
     //   {Label: 'Dev',
     //    Click: () => {
-    //
+    //      going to add a way to pop up Devtools
     //    }
     // },
       { role: 'quit' }
