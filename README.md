@@ -1,1 +1,1 @@
-# Electron-contacts
+# Electron-contacts - an awesome project
